@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+#ten, #twenty, #all {
+    color: #6f42c1;
+    background-color: #939ba2;
+}
+
+#header-one {
+    color: rgb(172, 18, 159);
+}
+
+#how-many {
+    color: rgb(26, 72, 209);
+}
