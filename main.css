@@ -2,7 +2,21 @@
     box-sizing: border-box;
 }
 
-#ten, #twenty, #all {
+.hide {
+    display: none;
+}
+
+#ten {
+    color: #6f42c1;
+    background-color: #939ba2;
+}
+
+#twenty {
+    color: #6f42c1;
+    background-color: #939ba2;
+}
+
+#all {
     color: #6f42c1;
     background-color: #939ba2;
 }
