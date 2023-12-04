@@ -159,5 +159,3 @@ const missing_students = [
     image: "assets/images/students/torbjorn_grahn.jpg",
   },
 ];
-
-export default students;

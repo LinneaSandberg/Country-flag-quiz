@@ -1,107 +1,48 @@
-import students from "./assets/images/students/students.js";
-
-const homePageEl = document.querySelector(".homePage");
-const tenPlayers = document.querySelector("#ten");
-const twentyPlaysers = document.querySelector("#twenty");
-const allPlayers = document.querySelector("#allPlayers");
-const myButtons = document.querySelectorAll(".myButtons");
+const firstPageEl = document.getElementById("firstPage");
+const secondPageEl = document.getElementById("secondPage");
+const myButtonsEl = document.querySelectorAll(".myButtons");
+const theGameEl = document.querySelector("#theGame");
+const randomNameEl = document.querySelectorAll(".randomName");
 
 //functioner för att dölja och visa olika sidor
 const hideElement = (element) => element.classlist.add("hide");
 const unhideElement = (element) => element.classlist.remove("hide");
 
-const shuffleStudents = (students) => {
+function shuffle(array) {
   // Loop through array starting at the last index
-  for (let i = students.length - 1; i > 0; i--) {
+  for (let i = array.length - 1; i > 0; i--) {
     // Generate a random index from 0 to i
     const j = Math.floor(Math.random() * (i + 1));
 
     // Swap elements at indexes i and j
-    const temp = students[i];
-    students[i] = students[j];
-    students[j] = temp;
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
-  return students;
-};
+  return array;
+}
 
-myButtons.forEach((button) => {
+// här får jag en ny lista med blandade studenter
+const shuffledStudents = shuffle(students);
+console.log(shuffledStudents);
+
+// Function to get random incorrect options for the quiz
+function getRandomIncorrectOptions() {
+  const allStudents = [...students];
+  shuffleArray(allStudents);
+  const incorrectOptions = allStudents
+    .filter((student) => !students.includes(student))
+    .slice(0, 3)
+    .map((student) => student.name);
+  return incorrectOptions;
+}
+
+myButtonsEl.forEach((button) => {
   button.addEventListener("click", (e) => {
-    hideElement(homePageEl);
     e.preventDefault();
-    console.log("clickad knapp");
+
+    secondPageEl.innerHTML = "";
 
     //option.innerHTML = name;
   });
 });
-
-/*
- 
-tenPlayers.addEventListener('click', (e) => {
-
-    e.target;
-
-    e.preventDefault;
-
-    const hideElement = (element) => {
-        element.classlist.add('hide');
-    } 
-    const unhideElement = (element) => {
-        element.classlist.remove('hide');
-    }
-
-    hideElement(homePage);
-    console.log('button clicked');
-
-
- })
-
- twentyPlaysers.addEventListener('click', (e) => {
-
-    e.target;
-
-    e.preventDefault;
-
-    const hideElement = (element) => {
-        element.classlist.add('hide');
-    } 
-    const unhideElement = (element) => {
-        element.classlist.remove('hide');
-    }
-
-    hideElement(homePage);
-    console.log('button clicked');
-
-
- })
-
- allPlayers.addEventListener('click', (e) => {
-
-    e.target;
-
-    e.preventDefault;
-
-    const hideElement = (element) => {
-        element.classlist.add('hide');
-    } 
-    const unhideElement = (element) => {
-        element.classlist.remove('hide');
-    }
-
-    hideElement(homePage);
-    console.log('button clicked');
-
-
- })
-
- 
-
-*/
-
-// tenPlayers.addEventListener('click', e => {
-// })
-
-// twentyPlaysers.addEventListener('click', e => {
-// })
-
-// all.addEventListener('click', e => {
-// })
