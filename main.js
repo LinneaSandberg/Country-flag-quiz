@@ -1,48 +1,88 @@
 const firstPageEl = document.getElementById("firstPage");
 const secondPageEl = document.getElementById("secondPage");
-const myButtonsEl = document.querySelectorAll(".myButtons");
 const theGameEl = document.querySelector("#theGame");
 const randomNameEl = document.querySelectorAll(".randomName");
+
+// dom referenser till antalet rundor spelaren vill spela
+const buttonForTenEl = document.querySelector("#buttonForTen");
+const buttonForTwentyEl = document.querySelector("#buttonForTwenty");
+const buttonForAllEl = document.querySelector("#buttonForAll");
 
 //functioner för att dölja och visa olika sidor
 const hideElement = (element) => element.classlist.add("hide");
 const unhideElement = (element) => element.classlist.remove("hide");
 
-function shuffle(array) {
-  // Loop through array starting at the last index
+const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
-    // Generate a random index from 0 to i
     const j = Math.floor(Math.random() * (i + 1));
-
-    // Swap elements at indexes i and j
     const temp = array[i];
     array[i] = array[j];
     array[j] = temp;
   }
-  return array;
+};
+
+const shuffledStudents = [...students]; // clone `students` array
+shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
+console.log("Students after proper shuffling:", shuffledStudents);
+
+//här får jag ut alla namnen
+shuffledStudents.forEach((student) => {
+  console.log(student.name);
+});
+
+//här får jag ut alla bilder
+shuffledStudents.forEach((student) => {
+  console.log(student.image);
+});
+
+let gameStarted = false;
+let peopleToGuess = 0;
+
+function startGame() {
+  if (gameStarted) {
+    return;
+  }
 }
 
-// här får jag en ny lista med blandade studenter
-const shuffledStudents = shuffle(students);
-console.log(shuffledStudents);
+buttonForTenEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  startGame(10);
+  gameStarted = true;
+});
 
-// Function to get random incorrect options for the quiz
-function getRandomIncorrectOptions() {
-  const allStudents = [...students];
-  shuffleArray(allStudents);
-  const incorrectOptions = allStudents
-    .filter((student) => !students.includes(student))
-    .slice(0, 3)
-    .map((student) => student.name);
-  return incorrectOptions;
-}
+buttonForTwentyEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  startGame(20);
+  gameStarted = true;
+});
 
+buttonForAllEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  startGame(41);
+  gameStarted = true;
+});
+
+/*
 myButtonsEl.forEach((button) => {
   button.addEventListener("click", (e) => {
     e.preventDefault();
+
+    gameStarted = true;
+
+    function tenRounds() {
+      for (let i = 0; i < 10; i++) {
+        const studentImage = document.createElement("img");
+        studentImage.setAttribute("src", "assets/images/");
+        console.log(studentImage, i);
+      }
+    }
+
+    tenRounds();
 
     secondPageEl.innerHTML = "";
 
     //option.innerHTML = name;
   });
 });
+
+*/

@@ -17,20 +17,30 @@
     </header>
 
     <main>
-        <section id="firstPage" class="d-flex flex-column">
+        <div id="firstPage" class="d-flex flex-column">
             <h2 id="how-many">Hur många rundor vill du spela?</h2>
             <form action="" class="d-flex flex-column">
                 
-                <button id="ten" class="btn btn-sm mb-2 myButtons" type="click">10 klasskompisar</button>
-                <button id="twenty" class="btn btn-sm mb-2 myButtons" type="click">20 klasskompisar</button>
-                <button id="all" class="btn btn-sm mb-2 myButtons" type="click">Alla klasskompisar</button>
+                <button id="buttonForTen" class="btn btn-sm mb-2 myButtons" onclick="startGame()" type="click">10 klasskompisar</button>
+                <button id="buttonForTwenty" class="btn btn-sm mb-2 myButtons" onclick="startGame()" type="click">20 klasskompisar</button>
+                <button id="buttonForAll" class="btn btn-sm mb-2 myButtons" onclick="startGame()" type="click">Alla klasskompisar</button>
             </form>
 
         </section>
 
-        <article id="secondPage">
+        <div id="secondPage">
+
+            <h2>Guess who is the person on the picture?</h2>
+
+            <figure>
+                <img id="randomImage" src="" alt="">
+            </figure>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
       
-        </article>
+        </div>
     </main>
 
    
