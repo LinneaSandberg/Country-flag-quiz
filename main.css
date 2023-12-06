@@ -6,19 +6,22 @@
     display: none;
 }
 
+
+
 #buttonForTen {
-    color: #6f42c1;
-    background-color: #939ba2;
+    color: #ffffff;
+    background-color: #368edb;
+    
 }
 
 #buttonForTwenty {
-    color: #6f42c1;
-    background-color: #939ba2;
+    color: #ffffff;
+    background-color: #368edb;
 }
 
 #buttonForAll {
-    color: #6f42c1;
-    background-color: #939ba2;
+    color: #ffffff;
+    background-color: #368edb;
 }
 
 #header-one {
