@@ -3,12 +3,13 @@ const secondPageEl = document.getElementById("secondPage");
 const theGameEl = document.querySelector("#theGame");
 const randomNameEl = document.querySelectorAll(".randomName");
 const imageEL = document.querySelector("#studentImage");
-const choiceEl = document.querySelectorAll(".choice");
+const choiceEl = document.querySelectorAll("#choice");
 const firstButton = document.querySelector("#firstButton");
 const secondButton = document.querySelector("#secondButton");
 const thirdButton = document.querySelector("#thirdButton");
 const forthButton = document.querySelector("#forthButton");
 const guessesEl = document.querySelector("#guesses");
+const allGuessingButtonsEl = document.querySelector("#allGuessingButtons");
 
 // dom referenser till antalet rundor spelaren vill spela
 const buttonForTenEl = document.querySelector("#buttonForTen");
@@ -36,11 +37,17 @@ console.log("Students after proper shuffling:", shuffledStudents);
 const studentTen = shuffledStudents.slice(0, 10);
 console.log(studentTen);
 
+//list of 20 students
+const twentyStudents = shuffledStudents.slice(0, 20);
+console.log(twentyStudents);
+
+//list off all students
+
 let correctStudent;
 //function to get three random options for names
 const gameRound = () => {
   //the correnct name for image
-  const correctStudent = shuffledStudents[0].name;
+  correctStudent = shuffledStudents[0].name;
   console.log(correctStudent);
 
   const incorrectOptions = shuffledStudents
@@ -48,9 +55,11 @@ const gameRound = () => {
     .map((student) => student.name)
     .slice(0, 3);
 
-  const buttonOptions = shuffleArray([...incorrectOptions, correctStudent]);
+  let buttonOptions = [...incorrectOptions, correctStudent];
+  shuffleArray(buttonOptions);
+  //const buttonOptions = shuffleArray([...incorrectOptions, correctStudent]);
 
-  //set button-text with options
+  //set button-text with buttonOptions[index]
   firstButton.innerHTML = buttonOptions[0];
   secondButton.innerHTML = buttonOptions[1];
   thirdButton.innerHTML = buttonOptions[2];
@@ -63,7 +72,6 @@ const gameRound = () => {
 
 function showImage() {
   correctStudent = shuffledStudents[0];
-
   imageEL.src = correctStudent.image;
 
   console.log("hej hopp");
@@ -80,69 +88,89 @@ let guesses;
 
 const newRound = () => {
   shuffleArray(shuffledStudents);
-
-  guesses = 0;
-
   // updateGuesses(guesses);
-
-  gameRound();
-
   showImage();
+  gameRound();
 };
 
 buttonForTenEl.addEventListener("click", (e) => {
   e.preventDefault();
-
-  guesses++;
+  guesses = 0;
   updateGuesses(guesses);
-
   showImage();
-  secondPageEl.classList.remove("hide");
-
   gameRound();
+  secondPageEl.classList.remove("hide");
 });
 
 buttonForTwentyEl.addEventListener("click", (e) => {
   e.preventDefault();
-
-  guesses++;
+  guesses = 0;
   updateGuesses(guesses);
-
-  //gameStarted = true;
-  secondPageEl.classList.remove("hide");
-
+  showImage();
   gameRound();
+  secondPageEl.classList.remove("hide");
 });
 
 buttonForAllEl.addEventListener("click", (e) => {
   e.preventDefault();
-
-  guesses++;
+  guesses = 0;
   updateGuesses(guesses);
-
-  //gameStarted = true;
-  secondPageEl.classList.remove("hide");
-
+  showImage();
   gameRound();
+  secondPageEl.classList.remove("hide");
 });
+
+allGuessingButtonsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.target.tagName === "BUTTON") {
+    const guessedName = e.target.innerHTML;
+
+    showImage();
+
+    if (guessedName === correctStudent.name) {
+      console.log("correct");
+      e.target.style.backgroundColor = "green";
+    } else {
+      console.log("wrong");
+      e.target.style.backgroundColor = "red";
+    }
+    console.log(`correct answear: ${correctStudent.name}`);
+
+    guesses++;
+    updateGuesses(guesses);
+
+    setTimeout(() => {
+      e.target.style.backgroundColor = "";
+      newRound();
+    }, 1000);
+  }
+
+  console.log("klickade på svartalternativ!");
+  console.log(e.target, "e.taget");
+  //console.log(e.value, "e.value"); Output: undefined
+});
+
+/*
+e.target.style.backgroundColor = "";
 
 choiceEl.forEach(function (button) {
   button.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(button.value);
     e.stopPropagation();
+    console.log("klickade på svartalternativ!");
+    guesses++;
+  });
+});
 
-    if (button.value === correctStudent.name) {
+ if (button.value === correctStudent.name) {
       alert("Thats the right answear!");
     } else {
       console.log("doesnt work");
     }
-  });
-});
 
-newRound();
 
-/*
 function names() {
   let correctStudent = shuffledStudents[0].name;
 
