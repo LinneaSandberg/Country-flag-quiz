@@ -10,6 +10,8 @@ const thirdButton = document.querySelector("#thirdButton");
 const forthButton = document.querySelector("#forthButton");
 const guessesEl = document.querySelector("#guesses");
 const allGuessingButtonsEl = document.querySelector("#allGuessingButtons");
+const rightGuessesEl = document.querySelector("#rightGuesses");
+const wrongGuessesEl = document.querySelector("#wrongGuesses");
 
 // dom referenser till antalet rundor spelaren vill spela
 const buttonForTenEl = document.querySelector("#buttonForTen");
@@ -40,8 +42,6 @@ console.log(studentTen);
 //list of 20 students
 const twentyStudents = shuffledStudents.slice(0, 20);
 console.log(twentyStudents);
-
-//list off all students
 
 let correctStudent;
 //function to get three random options for names
@@ -85,6 +85,8 @@ const updateGuesses = (guess) => {
 };
 
 let guesses;
+let rightGuesses = 0;
+let wrongGuesses = 0;
 
 const newRound = () => {
   shuffleArray(shuffledStudents);
@@ -132,28 +134,37 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
     if (guessedName === correctStudent.name) {
       console.log("correct");
       e.target.style.backgroundColor = "green";
+      rightGuesses++;
     } else {
       console.log("wrong");
       e.target.style.backgroundColor = "red";
+      wrongGuesses++;
     }
     console.log(`correct answear: ${correctStudent.name}`);
 
     guesses++;
     updateGuesses(guesses);
 
+    updateCounters();
+
     setTimeout(() => {
       e.target.style.backgroundColor = "";
       newRound();
     }, 1000);
   }
-
-  console.log("klickade på svartalternativ!");
-  console.log(e.target, "e.taget");
-  //console.log(e.value, "e.value"); Output: undefined
 });
 
+function updateCounters() {
+  rightGuessesEl.innerText = `Right Guesses: ${rightGuesses}`;
+  wrongGuessesEl.innerText = `Wrong Guesses: ${wrongGuesses}`;
+}
+
 /*
-e.target.style.backgroundColor = "";
+e.target.style.backgroundColor = ""; <--- kan vara användbar för att ändra knappen till orginal
+
+console.log("klickade på svartalternativ!");
+  console.log(e.target, "e.taget");
+  //console.log(e.value, "e.value"); Output: undefined
 
 choiceEl.forEach(function (button) {
   button.addEventListener("click", (e) => {
