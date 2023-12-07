@@ -7,24 +7,24 @@
     <link rel="stylesheet" href="main.css">
     <title>Document</title>
 </head>
-<body class="container text-center bs-secondary-bg">
+<body class="text-center bs-secondary-bg">
 
-    <header>
+    <header class="firstPage">
         <h1 id="header-one">Quiz-spel</h1>
         <figure>
             <img class="img-fluid" src="images/lets-play.jpeg" alt="lets-play">
         </figure>
     </header>
 
-    <main>
-        <section id="firstPage" class="d-flex flex-column">
-            <h2 id="how-many">Hur många rundor vill du spela?</h2>
-            <form action="" class="d-flex flex-column">
+    <main class="container">
+        <section class="d-flex flex-column">
+            <h2 id="howMany">Hur många rundor vill du spela?</h2>
+            <div class="button-container d-flex flex-column optionsButtons">
                 
-                <button id="buttonForTen" class="btn btn-sm mb-2 myButtons" type="click">10 klasskompisar</button>
-                <button id="buttonForTwenty" class="btn btn-sm mb-2 myButtons" type="click">20 klasskompisar</button>
-                <button id="buttonForAll" class="btn btn-sm mb-2 myButtons" type="click">Alla klasskompisar</button>
-            </form> 
+                <button id="buttonForTen" class="btn btn-sm mb-2" type="button">10 klasskompisar</button>
+                <button id="buttonForTwenty" class="btn btn-sm mb-2" type="button">20 klasskompisar</button>
+                <button id="buttonForAll" class="btn btn-sm mb-2" type="button">Alla klasskompisar</button>
+            </div> 
 
         </section>
 
@@ -37,11 +37,11 @@
                 <img id="studentImage" src="https://placekitten.com/500/500" alt="placekitten">
             </figure>
 
-            <div id="allGuessingButtons">
-                <button id="firstButton" class="choice btn btn-primary" type="click"></button>
-                <button id="secondButton" class="choice btn btn-primary" type="click"></button>
-                <button id="thirdButton" class="choice btn btn-primary" type="click"></button>
-                <button id="forthButton" class="choice btn btn-primary" type="click"></button>
+            <div id="allGuessingButtons" class="button-container">
+                <button id="firstButton" class="choice btn btn-primary" type="button"></button>
+                <button id="secondButton" class="choice btn btn-primary" type="button"></button>
+                <button id="thirdButton" class="choice btn btn-primary" type="button"></button>
+                <button id="forthButton" class="choice btn btn-primary" type="button"></button>
             </div>
 
             <p id="rightGuesses"></p>

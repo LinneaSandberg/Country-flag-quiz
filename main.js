@@ -1,27 +1,29 @@
-const firstPageEl = document.getElementById("firstPage");
-const secondPageEl = document.getElementById("secondPage");
-const theGameEl = document.querySelector("#theGame");
-const randomNameEl = document.querySelectorAll(".randomName");
-const imageEL = document.querySelector("#studentImage");
-const choiceEl = document.querySelectorAll("#choice");
-const firstButton = document.querySelector("#firstButton");
-const secondButton = document.querySelector("#secondButton");
-const thirdButton = document.querySelector("#thirdButton");
-const forthButton = document.querySelector("#forthButton");
-const guessesEl = document.querySelector("#guesses");
-const allGuessingButtonsEl = document.querySelector("#allGuessingButtons");
-const rightGuessesEl = document.querySelector("#rightGuesses");
-const wrongGuessesEl = document.querySelector("#wrongGuesses");
+const firstPageEl = document.querySelector(".firstPage"); //hiding
+const howManyEl = document.querySelector("#howMany"); //also for hiding
+const secondPageEl = document.getElementById("secondPage"); //aswell for hiding
+const imageEL = document.querySelector("#studentImage"); //rendering the image
+const guessesEl = document.querySelector("#guesses"); //rendering how many guesses made
+const allGuessingButtonsEl = document.querySelector("#allGuessingButtons"); //all the buttons for guessing who's the student
+const optionsButtonsEl = document.querySelector(".optionsButtons"); //all buttons for choosing how many rounds to play
+const rightGuessesEl = document.querySelector("#rightGuesses"); //rendering how many right-guesses the user have
+const wrongGuessesEl = document.querySelector("#wrongGuesses"); //rendering how many wrong-guesses the user have
 
-// dom referenser till antalet rundor spelaren vill spela
+//buttons for rendering the names off students
+const firstButtonEl = document.querySelector("#firstButton");
+const secondButtonEl = document.querySelector("#secondButton");
+const thirdButtonEl = document.querySelector("#thirdButton");
+const forthButtonEl = document.querySelector("#forthButton");
+
+//each button for choosing how many rounds
 const buttonForTenEl = document.querySelector("#buttonForTen");
 const buttonForTwentyEl = document.querySelector("#buttonForTwenty");
 const buttonForAllEl = document.querySelector("#buttonForAll");
 
-//functioner för att dölja och visa olika sidor
+//functions to hind and unhide elements
 const hideElement = (element) => element.classList.add("hide");
 const unhideElement = (element) => element.classList.remove("hide");
 
+//function for randomize arrays
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -33,7 +35,6 @@ const shuffleArray = (array) => {
 
 const shuffledStudents = [...students]; // clone `students` array
 shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
-console.log("Students after proper shuffling:", shuffledStudents);
 
 //list of 10 students
 const studentTen = shuffledStudents.slice(0, 10);
@@ -44,40 +45,37 @@ const twentyStudents = shuffledStudents.slice(0, 20);
 console.log(twentyStudents);
 
 let correctStudent;
-//function to get three random options for names
+//function to get three random options for names + correct name on shuffled places
 const gameRound = () => {
-  //the correnct name for image
-  correctStudent = shuffledStudents[0].name;
+  correctStudent = shuffledStudents[0].name; //the correnct name for image
   console.log(correctStudent);
 
   const incorrectOptions = shuffledStudents
-    .filter((student) => student.name !== correctStudent)
-    .map((student) => student.name)
-    .slice(0, 3);
+    .filter((student) => student.name !== correctStudent) //filter out the correct students name, to not display twice in one round
+    .map((student) => student.name) //this gives me back an array with all the names only
+    .slice(0, 3); //using .slice to only get three incorrect options
 
-  let buttonOptions = [...incorrectOptions, correctStudent];
-  shuffleArray(buttonOptions);
-  //const buttonOptions = shuffleArray([...incorrectOptions, correctStudent]);
+  let buttonOptions = [...incorrectOptions, correctStudent]; //making an array of all the four names
+  shuffleArray(buttonOptions); //shuffling the array
 
   //set button-text with buttonOptions[index]
-  firstButton.innerHTML = buttonOptions[0];
-  secondButton.innerHTML = buttonOptions[1];
-  thirdButton.innerHTML = buttonOptions[2];
-  forthButton.innerHTML = buttonOptions[3];
+  firstButtonEl.innerHTML = buttonOptions[0];
+  secondButtonEl.innerHTML = buttonOptions[1];
+  thirdButtonEl.innerHTML = buttonOptions[2];
+  forthButtonEl.innerHTML = buttonOptions[3];
 
-  [firstButton, secondButton, thirdButton, forthButton].forEach((el, index) => {
-    el.innerHTML = buttonOptions[index];
-  });
+  [firstButtonEl, secondButtonEl, thirdButtonEl, forthButtonEl].forEach(
+    (el, index) => {
+      el.innerHTML = buttonOptions[index];
+    }
+  );
 };
 
+//function for getting the image
 function showImage() {
   correctStudent = shuffledStudents[0];
   imageEL.src = correctStudent.image;
-
-  console.log("hej hopp");
 }
-
-// const tagetId = currentStudent.id;
 
 // Function for updating DOM with guesses made
 const updateGuesses = (guess) => {
@@ -90,37 +88,54 @@ let wrongGuesses = 0;
 
 const newRound = () => {
   shuffleArray(shuffledStudents);
-  // updateGuesses(guesses);
   showImage();
   gameRound();
 };
 
-buttonForTenEl.addEventListener("click", (e) => {
+optionsButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
+  e.stopPropagation();
   guesses = 0;
   updateGuesses(guesses);
   showImage();
   gameRound();
-  secondPageEl.classList.remove("hide");
-});
 
-buttonForTwentyEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  guesses = 0;
-  updateGuesses(guesses);
-  showImage();
-  gameRound();
-  secondPageEl.classList.remove("hide");
+  unhideElement(secondPageEl);
+  hideElement(firstPageEl);
+  hideElement(howManyEl);
+  hideElement(buttonForTenEl);
+  hideElement(buttonForTwentyEl);
+  hideElement(buttonForAllEl);
 });
+// buttonForTenEl.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   guesses = 0;
+//   updateGuesses(guesses);
+//   showImage();
+//   gameRound();
+//   secondPageEl.classList.remove("hide");
+//   hideElement(buttonForTenEl);
+//   hideElement(buttonForTwentyEl);
+//   hideElement(buttonForAllEl);
+// });
 
-buttonForAllEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  guesses = 0;
-  updateGuesses(guesses);
-  showImage();
-  gameRound();
-  secondPageEl.classList.remove("hide");
-});
+// buttonForTwentyEl.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   guesses = 0;
+//   updateGuesses(guesses);
+//   showImage();
+//   gameRound();
+//   secondPageEl.classList.remove("hide");
+// });
+
+// buttonForAllEl.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   guesses = 0;
+//   updateGuesses(guesses);
+//   showImage();
+//   gameRound();
+//   secondPageEl.classList.remove("hide");
+// });
 
 allGuessingButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
@@ -158,102 +173,3 @@ function updateCounters() {
   rightGuessesEl.innerText = `Right Guesses: ${rightGuesses}`;
   wrongGuessesEl.innerText = `Wrong Guesses: ${wrongGuesses}`;
 }
-
-/*
-e.target.style.backgroundColor = ""; <--- kan vara användbar för att ändra knappen till orginal
-
-console.log("klickade på svartalternativ!");
-  console.log(e.target, "e.taget");
-  //console.log(e.value, "e.value"); Output: undefined
-
-choiceEl.forEach(function (button) {
-  button.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("klickade på svartalternativ!");
-    guesses++;
-  });
-});
-
- if (button.value === correctStudent.name) {
-      alert("Thats the right answear!");
-    } else {
-      console.log("doesnt work");
-    }
-
-
-function names() {
-  let correctStudent = shuffledStudents[0].name;
-
-  firstButton.innerHTML = correctStudent;
-
-  let studentsNames = shuffledStudents[1].name;
-  secondButton.innerHTML = studentsNames;
-  studentsNames = shuffledStudents[2].name;
-  thirdButton.innerHTML = studentsNames;
-  studentsNames = shuffledStudents[3].name;
-  forthButton.innerHTML = studentsNames;
-}
-
-
- // let image = shuffledStudents[i].image;
-    // let name = shuffledStudents[i].name;
-    // checkAnswear(button.name, name);
-
-const checkAnswear = (imageName, buttonName) => {
-  if (imageName === buttonName) {
-    alert("Thats the right answear!");
-  } else {
-    alert("wrong answear!");
-  }
-};
-
-//här får jag ut alla namnen
-const studentNames = shuffledStudents.forEach((student) => {
-  console.log(student.name);
-  return student.name;
-});
-
-//här får jag ut alla bilder
-const studentImages = shuffledStudents.forEach((student) => {
-  console.log(student.image);
-  return student.image;
-});
-
-// function getRandom() {
-//   choice.textContent = students[studentNames].name;
-
-//   image.src = students[shuffledStudents].image;
-// }
-
-
-myButtonsEl.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    gameStarted = true;
-
-    function tenRounds() {
-      for (let i = 0; i < 10; i++) {
-        const studentImage = document.createElement("img");
-        studentImage.setAttribute("src", "assets/images/");
-        console.log(studentImage, i);
-      }
-    }
-
-    tenRounds();
-
-    secondPageEl.innerHTML = "";
-
-    //option.innerHTML = name;
-  });
-});
-
-function startGame() {
-  if (gameStarted) {
-    return;
-  }
-}
-let gameStarted = false;
-let peopleToGuess = 0;
-*/
