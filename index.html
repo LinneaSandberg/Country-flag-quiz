@@ -21,20 +21,20 @@
             <h2 id="howMany">Hur många rundor vill du spela?</h2>
             <div class="button-container d-flex flex-column optionsButtons">
                 
-                <button id="buttonForTen" class="btn btn-sm mb-2" type="button">10 klasskompisar</button>
-                <button id="buttonForTwenty" class="btn btn-sm mb-2" type="button">20 klasskompisar</button>
-                <button id="buttonForAll" class="btn btn-sm mb-2" type="button">Alla klasskompisar</button>
+                <button id="buttonForTen" class="btn btn-sm mb-2" type="button" value="10">10 rounds!🥱</button>
+                <button id="buttonForTwenty" class="btn btn-sm mb-2" type="button" value="20">20 rounds!😎</button>
+                <button id="buttonForAll" class="btn btn-sm mb-2" type="button" value="All">All rounds!🤠</button>
             </div> 
 
         </section>
 
-        <article id="secondPage" class="hide">
+        <article id="secondPage" class="hide .d-flex">
 
             <h2>Guess who is the person on the picture?</h2>
             <h3 id="guesses">Guesses: </h3>
 
             <figure>
-                <img id="studentImage" src="https://placekitten.com/500/500" alt="placekitten">
+                <img id="studentImage" class="img-fluid" src="https://placekitten.com/500/500" alt="placekitten">
             </figure>
 
             <div id="allGuessingButtons" class="button-container">
@@ -47,6 +47,10 @@
             <p id="rightGuesses"></p>
             <p id="wrongGuesses"></p>
     
+        </article>
+
+
+        <article id="results">
         </article>
     </main>
 

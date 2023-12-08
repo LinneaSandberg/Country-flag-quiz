@@ -10,18 +10,18 @@
 
 #buttonForTen {
     color: #ffffff;
-    background-color: #368edb;
+    background-color:  rgb(26, 72, 209);
     
 }
 
 #buttonForTwenty {
     color: #ffffff;
-    background-color: #368edb;
+    background-color: rgb(26, 72, 209);
 }
 
 #buttonForAll {
     color: #ffffff;
-    background-color: #368edb;
+    background-color: rgb(26, 72, 209);
 }
 
 #header-one {
@@ -33,3 +33,9 @@
 }
 
 
+
+
+.result-list {
+    list-style: none;
+    font-size: large;
+}

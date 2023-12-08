@@ -7,6 +7,7 @@ const allGuessingButtonsEl = document.querySelector("#allGuessingButtons"); //al
 const optionsButtonsEl = document.querySelector(".optionsButtons"); //all buttons for choosing how many rounds to play
 const rightGuessesEl = document.querySelector("#rightGuesses"); //rendering how many right-guesses the user have
 const wrongGuessesEl = document.querySelector("#wrongGuesses"); //rendering how many wrong-guesses the user have
+const resultsEl = document.querySelector("#results"); //empty conatiner to display the result after the game
 
 //buttons for rendering the names off students
 const firstButtonEl = document.querySelector("#firstButton");
@@ -37,11 +38,13 @@ const shuffledStudents = [...students]; // clone `students` array
 shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
 
 //list of 10 students
-const studentTen = shuffledStudents.slice(0, 10);
+const studentTen = shuffledStudents.filter((student, index) => index < 10);
+//const studentTen = shuffledStudents.slice(0, 10);
 console.log(studentTen);
 
 //list of 20 students
-const twentyStudents = shuffledStudents.slice(0, 20);
+const twentyStudents = shuffledStudents.filter((student, index) => index < 20);
+//const twentyStudents = shuffledStudents.slice(0, 20);
 console.log(twentyStudents);
 
 let correctStudent;
@@ -82,9 +85,13 @@ const updateGuesses = (guess) => {
   guessesEl.innerText = guess === 1 ? `${guess} guess` : `${guess} guesses`;
 };
 
-let guesses;
-let rightGuesses = 0;
-let wrongGuesses = 0;
+let guesses; //variabel for showing number of guesses
+let rightGuesses = 0; //counter for right-guesses
+let wrongGuesses = 0; //counter for wrong-guesses
+let rightGuessesList = []; //array for names on right-guesses
+let wrongGuessesList = []; //array for names on wrong guesses
+let currentGuess = []; //array for current-guess
+let improvments = []; //array to keep track on users improvment status
 
 const newRound = () => {
   shuffleArray(shuffledStudents);
@@ -92,9 +99,31 @@ const newRound = () => {
   gameRound();
 };
 
+let maxRounds;
+let rounds;
+
 optionsButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
+
+  if (e.target.tagName === "BUTTON") {
+    let numberOfRounds;
+    let all = shuffledStudents.length;
+
+    if (e.target.value === "10") {
+      numberOfRounds = 10;
+      studentTen;
+    } else if (e.target.value === "20") {
+      numberOfRounds = 20;
+      twentyStudents;
+    } else if (e.target.value === "all") {
+      numberOfRounds = shuffledStudents.length;
+    }
+
+    maxRounds = numberOfRounds;
+    rounds = 0;
+  }
+
   guesses = 0;
   updateGuesses(guesses);
   showImage();
@@ -107,6 +136,118 @@ optionsButtonsEl.addEventListener("click", (e) => {
   hideElement(buttonForTwentyEl);
   hideElement(buttonForAllEl);
 });
+
+allGuessingButtonsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.target.tagName === "BUTTON") {
+    const guessedName = e.target.innerHTML;
+
+    showImage();
+
+    if (guessedName === correctStudent.name) {
+      console.log("correct");
+      e.target.style.backgroundColor = "green";
+      rightGuesses++;
+      rightGuessesList.push(correctStudent);
+      currentGuess.push({ correct: true, student: correctStudent });
+      improvments.push("getting better....!");
+    } else if (guessedName !== correctStudent.name) {
+      console.log("wrong");
+      e.target.style.backgroundColor = "red";
+      wrongGuesses++;
+      wrongGuessesList.push(correctStudent);
+      currentGuess.push({ correct: false, student: correctStudent });
+      improvments.push("getting worse...");
+    }
+    console.log(`correct answear: ${correctStudent.name}`);
+
+    guesses++;
+    updateGuesses(guesses);
+
+    updateCounters();
+    rounds++;
+
+    if (rounds >= maxRounds) {
+      displayResults();
+      hideElement(secondPageEl);
+      guesses = 0;
+    } else {
+      setTimeout(() => {
+        e.target.style.backgroundColor = "";
+        newRound();
+      }, 1000);
+    }
+  }
+});
+
+//function to show in markup the amount of right vs wrong guesses per round
+function updateCounters() {
+  rightGuessesEl.innerText = `Right Guesses: ${rightGuesses}`;
+  wrongGuessesEl.innerText = `Wrong Guesses: ${wrongGuesses}`;
+}
+
+//function using ternary operator to display GIF according to how good the user are at guessing the names
+function displayResults() {
+  const resultOutput =
+    Number(rightGuesses) >= Number(wrongGuesses)
+      ? "images/winner.gif"
+      : "images/loser.gif";
+
+  resultsEl.innerHTML = `<figure><img class="img-fluid" src=${resultOutput}></figure>
+
+  <ul class="result-list">
+  <li>Right guesssed names: ${rightGuesses}</li>
+  <li>Wrong guessed names: ${wrongGuesses}</li>
+  <li>Improvment status: ${improvments.join(", ")}</li>
+  <li>Last Guesses:
+  <ul>${currentGuess
+    .map(
+      (guess) =>
+        `<li>${guess.correct ? "Correct" : "Wrong"} - ${
+          guess.student.name
+        }</li>`
+    )
+    .join("")}</ul>
+  </li>
+  <li>Correct guessed students: 
+  <ul>${rightGuessesList
+    .map((student) => `<li>${student.name}</li>`)
+    .join("")}</ul>
+  </li>
+  <li>Wrong guessed students: 
+  <ul>${wrongGuessesList
+    .map((student) => `<li>${student.name}</li>`)
+    .join("")}</ul>
+  </li>
+  `;
+}
+
+/*
+ resultsEl.innerHTML = `<figure><img class="img-fluid" src=${resultOutput}></figure>
+  <ul id="result-list">
+  <li>Right guessed names: ${rightGuesses}</li>
+  <li>Wrong guessed names: ${wrongGuesses}</li>
+  </ul>
+  `;
+
+const rightGuessListEl = document.getElementById("rightGuessList");
+const wrongGuessListEl = document.getElementById("wrongGuessList");
+
+rightGuesses.forEach((student) => {
+  const listItem = document.createElement("li");
+  listItem.innerText = `Right guessed names: ${student.name}`;
+  rightGuessListEl.appendChild(listItem);
+});
+
+wrongGuesses.forEach((student) => {
+  const listItem = document.createElement("li");
+  listItem.innerText = `Wrong guessed names: ${student.name}`;
+  wrongGuessListEl.appendChild(listItem);
+});
+
+
 // buttonForTenEl.addEventListener("click", (e) => {
 //   e.preventDefault();
 //   guesses = 0;
@@ -137,39 +278,4 @@ optionsButtonsEl.addEventListener("click", (e) => {
 //   secondPageEl.classList.remove("hide");
 // });
 
-allGuessingButtonsEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (e.target.tagName === "BUTTON") {
-    const guessedName = e.target.innerHTML;
-
-    showImage();
-
-    if (guessedName === correctStudent.name) {
-      console.log("correct");
-      e.target.style.backgroundColor = "green";
-      rightGuesses++;
-    } else {
-      console.log("wrong");
-      e.target.style.backgroundColor = "red";
-      wrongGuesses++;
-    }
-    console.log(`correct answear: ${correctStudent.name}`);
-
-    guesses++;
-    updateGuesses(guesses);
-
-    updateCounters();
-
-    setTimeout(() => {
-      e.target.style.backgroundColor = "";
-      newRound();
-    }, 1000);
-  }
-});
-
-function updateCounters() {
-  rightGuessesEl.innerText = `Right Guesses: ${rightGuesses}`;
-  wrongGuessesEl.innerText = `Wrong Guesses: ${wrongGuesses}`;
-}
+*/
