@@ -29,8 +29,6 @@ let rightGuesses = 0; //counter for right-guesses
 let wrongGuesses = 0; //counter for wrong-guesses
 let rightGuessesList = []; //array for names on right-guesses
 let wrongGuessesList = []; //array for names on wrong guesses
-let currentGuess = []; //array for current-guess
-let improvments = []; //array to keep track on users improvment status
 
 //functions to hind and unhide elements
 const hideElement = (element) => element.classList.add("hide");
@@ -153,8 +151,6 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
       e.target.style.backgroundColor = "green";
       rightGuesses++;
       rightGuessesList.push(correctStudent);
-      currentGuess.push({ correct: true, student: correctStudent });
-      improvments.push("getting better....!");
     } else if (guessedName !== correctStudent.name) {
       console.log("wrong");
       e.target.style.backgroundColor = "red";
@@ -163,8 +159,6 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
         guessedName: guessedName,
         correctStudent: correctStudent,
       });
-      currentGuess.push({ correct: false, student: correctStudent });
-      improvments.push("getting worse...");
     }
     console.log(`correct answear: ${correctStudent.name}`);
 
@@ -206,11 +200,33 @@ function displayResults() {
     .join("");
 
   resultsEl.innerHTML = `<figure><img class="img-fluid" src=${resultOutput}></figure>
-  <ul class="result-list">
+  <ul class="result-list"> Wrong guessed students: ${wrongGuessesDisplay}
+  </ul>
+  <p>You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses</p>
+  
+  `;
+}
+
+/*
+
+ <li>Correct guessed students: 
+  <ul>${rightGuessesList
+    .map((student) => `<li>${student.name}</li>`)
+    .join("")}</ul>
+  </li>
+
   <li>Right guesssed names: ${rightGuesses}</li>
   <li>Wrong guessed names: ${wrongGuesses}</li>
-  <li>Improvment status: ${improvments.join(", ")}</li>
-  <li>Last Guesses:
+
+let currentGuess = []; //array for current-guess
+
+
+      currentGuess.push({ correct: true, student: correctStudent });
+
+      currentGuess.push({ correct: false, student: correctStudent });
+
+
+ <li>Last Guesses:
   <ul>${currentGuess
     .map(
       (guess) =>
@@ -220,18 +236,8 @@ function displayResults() {
     )
     .join("")}</ul>
   </li>
-  <li>Correct guessed students: 
-  <ul>${rightGuessesList
-    .map((student) => `<li>${student.name}</li>`)
-    .join("")}</ul>
-  </li>
-  <li>Wrong guessed students: 
-  <ul>${wrongGuessesDisplay}</ul>
-  </li>
-  </ul>`;
-}
 
-/*
+
   // const studentToShow = shuffledStudents
   //   .filter((student) => student.image !== correctStudent)
   //   .map((student) => student.image);

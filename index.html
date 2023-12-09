@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="main.css">
     <title>Quiz-game!</title>
 </head>
-<body class="text-center bs-secondary-bg">
+<body id="fullPage" class="text-center bs-secondary-bg">
 
     <header class="firstPage">
-        <h1 id="header-one">Quiz-spel</h1>
+        <h1 id="header-one">Quiz-game!</h1>
         <figure>
             <img class="img-fluid" src="images/lets-play.jpeg" alt="lets-play">
         </figure>
@@ -19,7 +19,7 @@
     <main class="container">
 
         <section class="d-flex flex-column">
-            <h2 id="howMany">Hur många rundor vill du spela?</h2>
+            <h2 id="howMany">Choose how may rounds!</h2>
             <div class="button-container d-flex flex-column optionsButtons">
                 
                 <button id="buttonForTen" class="btn btn-sm mb-2" type="button" value="10">10 rounds!🥱</button>
@@ -29,10 +29,10 @@
 
         </section>
 
-        <article id="secondPage" class="hide .d-flex">
+        <article id="secondPage" class="hide">
 
             <h2>Guess who is the person on the picture?</h2>
-            <h3 id="guesses">Guesses: </h3>
+            <h3 id="guesses"></h3>
 
             <figure>
                 <img id="studentImage" class="img-fluid" src="images/placekitten.jpeg" alt="placekitten">
@@ -45,13 +45,14 @@
                 <button id="forthButton" class="choice btn btn-primary" type="button"></button>
             </div>
 
-            <p id="rightGuesses"></p>
-            <p id="wrongGuesses"></p>
+            <p class="guessesResults" id="rightGuesses"></p>
+            <p class="guessesResults" id="wrongGuesses"></p>
     
         </article>
 
 
         <article id="results">
+
         </article>
 
 

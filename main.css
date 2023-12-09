@@ -6,6 +6,10 @@
     display: none;
 }
 
+#fullPage {
+    background-color: rgb(255, 255, 255);
+}
+
 
 
 #buttonForTen {
@@ -26,10 +30,20 @@
 
 #header-one {
     color: rgb(172, 18, 159);
+    font-weight: bold;
+    margin-top: 5rem;
 }
 
 #howMany {
     color: rgb(26, 72, 209);
+}
+
+#secondPage {
+    margin-top: 3rem;
+}
+
+#guesses {
+    margin-top: 1rem;
 }
 
 
