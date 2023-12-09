@@ -20,6 +20,18 @@ const buttonForTenEl = document.querySelector("#buttonForTen");
 const buttonForTwentyEl = document.querySelector("#buttonForTwenty");
 const buttonForAllEl = document.querySelector("#buttonForAll");
 
+//variables for the global-scoope
+let correctStudent; // identifing the student on the image
+let guesses; // variabel for showing number of guesses
+let maxRounds; // variabel for identifing the games max amount of rounds
+let rounds; // to count amount of rounds
+let rightGuesses = 0; //counter for right-guesses
+let wrongGuesses = 0; //counter for wrong-guesses
+let rightGuessesList = []; //array for names on right-guesses
+let wrongGuessesList = []; //array for names on wrong guesses
+let currentGuess = []; //array for current-guess
+let improvments = []; //array to keep track on users improvment status
+
 //functions to hind and unhide elements
 const hideElement = (element) => element.classList.add("hide");
 const unhideElement = (element) => element.classList.remove("hide");
@@ -36,29 +48,30 @@ const shuffleArray = (array) => {
 
 const shuffledStudents = [...students]; // clone `students` array
 shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
+console.log("Students after proper shuffling:", shuffledStudents);
 
 //list of 10 students
 const studentTen = shuffledStudents.filter((student, index) => index < 10);
-//const studentTen = shuffledStudents.slice(0, 10);
 console.log(studentTen);
 
 //list of 20 students
 const twentyStudents = shuffledStudents.filter((student, index) => index < 20);
-//const twentyStudents = shuffledStudents.slice(0, 20);
 console.log(twentyStudents);
 
-let correctStudent;
+const allStudents = shuffledStudents;
+console.log(allStudents);
+
 //function to get three random options for names + correct name on shuffled places
 const gameRound = () => {
-  correctStudent = shuffledStudents[0].name; //the correnct name for image
-  console.log(correctStudent);
+  correctStudent = shuffledStudents[0]; //the correnct name for image
+  console.log(correctStudent.name);
 
   const incorrectOptions = shuffledStudents
-    .filter((student) => student.name !== correctStudent) //filter out the correct students name, to not display twice in one round
+    .filter((student) => student.name !== correctStudent.name) //filter out the correct students name, to not display twice in one round
     .map((student) => student.name) //this gives me back an array with all the names only
     .slice(0, 3); //using .slice to only get three incorrect options
 
-  let buttonOptions = [...incorrectOptions, correctStudent]; //making an array of all the four names
+  let buttonOptions = [...incorrectOptions, correctStudent.name]; //making an array of all the four names
   shuffleArray(buttonOptions); //shuffling the array
 
   //set button-text with buttonOptions[index]
@@ -85,22 +98,11 @@ const updateGuesses = (guess) => {
   guessesEl.innerText = guess === 1 ? `${guess} guess` : `${guess} guesses`;
 };
 
-let guesses; //variabel for showing number of guesses
-let rightGuesses = 0; //counter for right-guesses
-let wrongGuesses = 0; //counter for wrong-guesses
-let rightGuessesList = []; //array for names on right-guesses
-let wrongGuessesList = []; //array for names on wrong guesses
-let currentGuess = []; //array for current-guess
-let improvments = []; //array to keep track on users improvment status
-
 const newRound = () => {
   shuffleArray(shuffledStudents);
   showImage();
   gameRound();
 };
-
-let maxRounds;
-let rounds;
 
 optionsButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
@@ -157,7 +159,10 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
       console.log("wrong");
       e.target.style.backgroundColor = "red";
       wrongGuesses++;
-      wrongGuessesList.push(correctStudent);
+      wrongGuessesList.push({
+        guessedName: guessedName,
+        correctStudent: correctStudent,
+      });
       currentGuess.push({ correct: false, student: correctStudent });
       improvments.push("getting worse...");
     }
@@ -191,12 +196,16 @@ function updateCounters() {
 //function using ternary operator to display GIF according to how good the user are at guessing the names
 function displayResults() {
   const resultOutput =
-    Number(rightGuesses) >= Number(wrongGuesses)
-      ? "images/winner.gif"
-      : "images/loser.gif";
+    rightGuesses >= wrongGuesses ? "images/winner.gif" : "images/loser.gif";
+
+  const wrongGuessesDisplay = wrongGuessesList
+    .map(
+      (student) =>
+        `<li>Guessed: ${student.guessedName}, Correct: ${student.correctStudent.name}</li> `
+    )
+    .join("");
 
   resultsEl.innerHTML = `<figure><img class="img-fluid" src=${resultOutput}></figure>
-
   <ul class="result-list">
   <li>Right guesssed names: ${rightGuesses}</li>
   <li>Wrong guessed names: ${wrongGuesses}</li>
@@ -217,14 +226,17 @@ function displayResults() {
     .join("")}</ul>
   </li>
   <li>Wrong guessed students: 
-  <ul>${wrongGuessesList
-    .map((student) => `<li>${student.name}</li>`)
-    .join("")}</ul>
+  <ul>${wrongGuessesDisplay}</ul>
   </li>
-  `;
+  </ul>`;
 }
 
 /*
+  // const studentToShow = shuffledStudents
+  //   .filter((student) => student.image !== correctStudent)
+  //   .map((student) => student.image);
+
+  
  resultsEl.innerHTML = `<figure><img class="img-fluid" src=${resultOutput}></figure>
   <ul id="result-list">
   <li>Right guessed names: ${rightGuesses}</li>
