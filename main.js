@@ -8,7 +8,6 @@ const optionsButtonsEl = document.querySelector(".optionsButtons"); //all button
 const rightGuessesEl = document.querySelector("#rightGuesses"); //rendering how many right-guesses the user have
 const wrongGuessesEl = document.querySelector("#wrongGuesses"); //rendering how many wrong-guesses the user have
 const resultsEl = document.querySelector("#results"); //empty conatiner to display the result after the game
-const restartGameEl = document.querySelector("#restartButton");
 
 //buttons for rendering the names off students
 const firstButtonEl = document.querySelector("#firstButton");
@@ -49,9 +48,9 @@ const shuffledStudents = [...students]; // clone `students` array
 shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
 console.log("Students after proper shuffling:", shuffledStudents);
 
-// // clone of the list off students
-// let allStudents = shuffledStudents;
-// console.log(allStudents);
+// clone of the list off students
+let allStudents = shuffledStudents;
+console.log(allStudents);
 
 //list of 10 students
 let tenStudents = shuffledStudents.slice(0, 10);
@@ -61,76 +60,52 @@ console.log(tenStudents);
 let twentyStudents = shuffledStudents.slice(0, 20);
 console.log(twentyStudents);
 
-// //function for getting the image
-// function showImage() {
-//   currentStudent = shuffledStudents[0];
-//   imageEL.src = currentStudent.image;
-// }
-
-let usedStudent = [];
 let currentIndex = 0;
 //function to get three random options for names + correct name on shuffled places
 const gameRound = () => {
-  if (currentIndex >= shuffledStudents.length) {
-    console.log("resetting currentIndex");
-    usedStudent = [];
-    currentIndex = 0;
-  }
+  currentStudent = shuffledStudents[currentIndex]; //the correnct name for image
+  console.log("currentStudent: ", currentStudent.name);
 
-  // if (usedStudent.length === shuffledStudents.length) {
-  //   usedStudent = [];
-  //   currentIndex = 0;
-  // }
+  const allAnswers = buttonOptions(currentStudent, shuffledStudents);
+  console.log({ allAnswers });
 
-  const unusedStudent = shuffledStudents.filter(
-    (student) => !usedStudent.includes(student.id)
-  );
-
-  // if (unusedStudent.length === 0) {
-  //   console.log("Unused student is empty");
-  //   usedStudent = [];
-  //   currentIndex = 0;
-  //   return;
-  // }
-
-  currentStudent = unusedStudent[currentIndex]; //the correnct name for image
-  console.log("Current student:", currentStudent);
-
-  const incorrectOptions = unusedStudent
-    .filter((student) => student.id !== currentStudent.id) //filter out the correct students name, to not display twice in one round
-    .map((student) => student.name) //this gives me back an array with all the names only
-    .slice(0, 3); //using .slice to only get three incorrect options
-
-  console.log("Incorrect options:", incorrectOptions);
-
-  if (incorrectOptions.includes(undefined)) {
-    console.log("undefined option detected, skip round");
-    return;
-  }
-
-  let buttonOptions = [...incorrectOptions, currentStudent.name]; //making an array of all the four names
-  shuffleArray(buttonOptions); //shuffling the array
+  shuffleArray(allAnswers);
 
   [firstButtonEl, secondButtonEl, thirdButtonEl, forthButtonEl].forEach(
     (el, index) => {
-      el.innerHTML = buttonOptions[index];
+      el.innerHTML = allAnswers[index];
     }
   );
 
-  usedStudent.push(currentStudent.id);
   imageEL.src = currentStudent.image;
   currentIndex++;
 };
+//KOLLA HUR RENT DET BLEV ;D
 
-// Function for a new round off the game
-const newRound = () => {
-  shuffleArray(shuffledStudents);
-  usedStudent = [];
-  gameRound();
+const buttonOptions = (currentStudent, shuffledStudents) => {
+  console.log({ currentStudent });
+  console.log({ shuffledStudents });
+
+  const randomNumbers = Math.random() * (students.length - 3);
+  console.log("randomNumbers: ", randomNumbers);
+
+  const incorrectOptions = shuffledStudents
+    .filter((student) => student.name !== currentStudent.name)
+    .map((student) => student.name)
+    .slice(randomNumbers, randomNumbers + 3);
+
+  return incorrectOptions.concat(currentStudent.name);
 };
+
+// // Function for a new round off the game
+// const newRound = () => {
+//   shuffleArray(shuffledStudents);
+//   gameRound();
+// };
 
 // Function for resetting the game state for a new round
 const restartGame = () => {
+  shuffleArray(shuffledStudents);
   guesses = 0;
   rightGuesses = 0;
   wrongGuesses = 0;
@@ -139,97 +114,14 @@ const restartGame = () => {
   rounds = 0;
   updateGuesses(guesses);
   updateCounters();
-  newRound();
+  hideElement(resultsEl);
+  unhideElement(firstPageEl);
 };
 
 // Function for updating DOM with guesses made
 const updateGuesses = (guess) => {
   guessesEl.innerText = guess === 1 ? `${guess} guess` : `${guess} guesses`;
 };
-
-optionsButtonsEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (e.target.tagName === "BUTTON") {
-    let numberOfRounds;
-
-    if (e.target.value === "10") {
-      numberOfRounds = 10;
-      shuffledStudents = tenStudents.slice();
-    } else if (e.target.value === "20") {
-      numberOfRounds = 20;
-      shuffledStudents = twentyStudents.slice();
-    } else if (e.target.value === "all") {
-      numberOfRounds = shuffledStudents.length;
-    }
-
-    maxRounds = numberOfRounds;
-    rounds = 0;
-  }
-
-  guesses = 0;
-  updateGuesses(guesses);
-  // showImage();
-  gameRound();
-
-  unhideElement(secondPageEl);
-  hideElement(firstPageEl);
-  hideElement(howManyEl);
-  hideElement(buttonForTenEl);
-  hideElement(buttonForTwentyEl);
-  hideElement(buttonForAllEl);
-});
-
-restartGameEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  hideElement(restartGameEl);
-  restartGame();
-});
-
-allGuessingButtonsEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (e.target.tagName === "BUTTON") {
-    const guessedName = e.target.innerHTML;
-
-    // showImage();
-
-    if (guessedName === currentStudent.name) {
-      console.log("correct");
-      e.target.style.backgroundColor = "green";
-      rightGuesses++;
-      rightGuessesList.push(currentStudent);
-    } else if (guessedName !== currentStudent.name) {
-      console.log("wrong");
-      e.target.style.backgroundColor = "red";
-      wrongGuesses++;
-      wrongGuessesList.push({
-        guessedName: guessedName,
-        currentStudent: currentStudent,
-      });
-    }
-    console.log(`correct answear: ${currentStudent.name}`);
-
-    guesses++;
-    updateGuesses(guesses);
-
-    updateCounters();
-    rounds++;
-
-    if (rounds >= maxRounds) {
-      displayResults();
-      hideElement(secondPageEl);
-      guesses = 0;
-    } else {
-      setTimeout(() => {
-        e.target.style.backgroundColor = "";
-        newRound();
-      }, 1000);
-    }
-  }
-});
 
 //function to show in markup the amount of right vs wrong guesses per round
 function updateCounters() {
@@ -253,15 +145,110 @@ function displayResults() {
   <ul class="result-list"> Wrong guessed students: ${wrongGuessesDisplay}
   </ul>
   <p>You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses</p>
+  <button id="restartButton">Restart new game!</button>
   
   `;
 }
 
+// Event listner for how many rounds to output
+optionsButtonsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.target.tagName === "BUTTON") {
+    let numberOfRounds;
+
+    if (e.target.value === "10") {
+      // numberOfRounds = 10;
+      allStudents = tenStudents.slice();
+    } else if (e.target.value === "20") {
+      // numberOfRounds = 20;
+      allStudents = twentyStudents.slice();
+    } else if (e.target.value === "all") {
+      allStudents = shuffledStudents;
+      // numberOfRounds = shuffledStudents.length;
+    }
+
+    maxRounds = allStudents.length;
+    rounds = 0;
+  }
+
+  guesses = 0;
+  updateGuesses(guesses);
+  gameRound();
+
+  unhideElement(secondPageEl);
+  hideElement(firstPageEl);
+});
+
+// event listner for the four option buttons
+allGuessingButtonsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.target.tagName === "BUTTON") {
+    const guessedName = e.target.innerHTML;
+
+    if (guessedName === currentStudent.name) {
+      console.log("correct");
+      e.target.style.backgroundColor = "green";
+      rightGuesses++;
+      rightGuessesList.push(currentStudent);
+    } else if (guessedName !== currentStudent.name) {
+      console.log("wrong");
+      e.target.style.backgroundColor = "red";
+      wrongGuesses++;
+      wrongGuessesList.push({
+        guessedName: guessedName,
+        currentStudent: currentStudent,
+      });
+    }
+    console.log(`correct answear: ${currentStudent.name}`);
+
+    guesses++;
+    updateGuesses(guesses);
+
+    updateCounters();
+    // rounds++;
+
+    if (rounds < maxRounds) {
+      rounds++;
+      setTimeout(() => {
+        e.target.style.backgroundColor = "";
+        gameRound();
+      }, 1000);
+    } else {
+      displayResults();
+      e.target.style.backgroundColor = "";
+      hideElement(secondPageEl);
+      guesses = 0;
+    }
+
+    //   if (rounds >= maxRounds) {
+    //     displayResults();
+    //     e.target.style.backgroundColor = "";
+    //     hideElement(secondPageEl);
+    //     guesses = 0;
+    //   } else {
+    //     setTimeout(() => {
+    //       e.target.style.backgroundColor = "";
+    //       gameRound();
+    //     }, 1000);
+    //   }
+  }
+});
+
+resultsEl.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    console.log("button clicked");
+
+    restartGame();
+  }
+});
+
 /*
 let usedStudents = [];
 usedStudents.push(currentStudent.image);
-
-
 
 
 
