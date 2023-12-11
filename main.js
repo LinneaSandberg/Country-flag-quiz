@@ -79,8 +79,11 @@ const gameRound = () => {
 
   imageEL.src = currentStudent.image;
   currentIndex++;
+
+  if (currentIndex >= shuffledStudents.length) {
+    currentIndex = 0;
+  }
 };
-//KOLLA HUR RENT DET BLEV ;D
 
 const buttonOptions = (currentStudent, shuffledStudents) => {
   console.log({ currentStudent });
@@ -159,17 +162,20 @@ optionsButtonsEl.addEventListener("click", (e) => {
     let numberOfRounds;
 
     if (e.target.value === "10") {
-      // numberOfRounds = 10;
-      allStudents = tenStudents.slice();
+      allStudents = tenStudents;
+      maxRounds = 10;
+      console.log("selected 10 students: ", tenStudents);
     } else if (e.target.value === "20") {
-      // numberOfRounds = 20;
-      allStudents = twentyStudents.slice();
+      allStudents = twentyStudents;
+      maxRounds = 20;
+      console.log("selected 20 students: ", twentyStudents);
     } else if (e.target.value === "all") {
       allStudents = shuffledStudents;
-      // numberOfRounds = shuffledStudents.length;
+      maxRounds = allStudents.length;
+      console.log("Selected 41 students:", allStudents);
     }
 
-    maxRounds = allStudents.length;
+    // maxRounds = allStudents.length;
     rounds = 0;
   }
 
@@ -186,16 +192,18 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
 
+  // console.log("rounds:", rounds, "maxRounds:", maxRounds);
+
   if (e.target.tagName === "BUTTON") {
     const guessedName = e.target.innerHTML;
 
     if (guessedName === currentStudent.name) {
-      console.log("correct");
+      // console.log("correct");
       e.target.style.backgroundColor = "green";
       rightGuesses++;
       rightGuessesList.push(currentStudent);
     } else if (guessedName !== currentStudent.name) {
-      console.log("wrong");
+      // console.log("wrong");
       e.target.style.backgroundColor = "red";
       wrongGuesses++;
       wrongGuessesList.push({
@@ -205,14 +213,17 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
     }
     console.log(`correct answear: ${currentStudent.name}`);
 
+    console.log("rounds:", rounds, "maxRounds:", maxRounds);
+
     guesses++;
     updateGuesses(guesses);
 
     updateCounters();
-    // rounds++;
+    rounds++;
 
     if (rounds < maxRounds) {
-      rounds++;
+      console.log("maxRounds: ", maxRounds);
+      console.log("rounds: ", rounds);
       setTimeout(() => {
         e.target.style.backgroundColor = "";
         gameRound();
@@ -223,6 +234,19 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
       hideElement(secondPageEl);
       guesses = 0;
     }
+  }
+});
+
+// event listner for the reset game button
+resultsEl.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    console.log("button clicked");
+
+    restartGame();
+  }
+});
+
+/*
 
     //   if (rounds >= maxRounds) {
     //     displayResults();
@@ -235,20 +259,6 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
     //       gameRound();
     //     }, 1000);
     //   }
-  }
-});
-
-resultsEl.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    console.log("button clicked");
-
-    restartGame();
-  }
-});
-
-/*
-let usedStudents = [];
-usedStudents.push(currentStudent.image);
 
 
 
