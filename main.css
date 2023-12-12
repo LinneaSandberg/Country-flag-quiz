@@ -7,49 +7,293 @@
 }
 
 #fullPage {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(28, 28, 28);
+    color:  rgb(255, 255, 255);
 }
 
-
-
-#buttonForTen {
-    color: #ffffff;
-    background-color:  rgb(26, 72, 209);
-    
+/* First page 1️⃣ */
+.banner {
+    border-radius: 2rem;
+    border: #ffffff solid;
+    display: block;
+    margin: auto;
 }
 
-#buttonForTwenty {
-    color: #ffffff;
-    background-color: rgb(26, 72, 209);
-}
-
-#buttonForAll {
-    color: #ffffff;
-    background-color: rgb(26, 72, 209);
+#header{
+    margin-bottom: 4rem;
 }
 
 #header-one {
-    color: rgb(172, 18, 159);
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px rgb(255, 0, 162);
+    text-align: center;
     font-weight: bold;
-    margin-top: 5rem;
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
 }
 
 #howMany {
-    color: rgb(26, 72, 209);
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px rgb(255, 110, 199);
+    text-align: center;
 }
 
+#buttonForTen, #buttonForTwenty, #buttonForAll  {
+    color: #ffffff;
+    background-color:  rgba(10, 5, 77, 0.201);
+    padding: 2rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    border: rgba(245, 245, 245, 0.306) solid;
+    font-weight: bold;
+    font-size: large;
+}
+
+.optionsButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Second page 2️⃣ */
 #secondPage {
     margin-top: 3rem;
 }
 
+#studentImage {
+    display: block;
+    margin: auto;
+    border-radius: 2rem;
+}
+
+#header-two {
+    color: rgb(255, 0, 162);
+    font-size: 2rem;
+    text-shadow: 2px 2px rgba(104, 102, 102, 0.214);
+    text-align: center;
+    margin: 5rem auto 3rem auto;
+}
+
 #guesses {
+    margin-top: 1rem;
+    font-weight: bold;
+    text-align: end;
+    margin-right: 2rem;
+}
+
+#box-indicator {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 1rem;
 }
 
+#rightGuesses {
+    margin-right: 1rem;
+}
 
+#allGuessingButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+}
 
+.choice {
+    color: #ffffff;
+    background-color:  rgba(10, 5, 77, 0.201);
+    padding: 1rem 2rem;
+    margin: 0 0.5rem 0.5rem 0;
+    width: 10rem;
+    border-radius: 0.5rem;
+    border: rgba(245, 245, 245, 0.306) solid;
+    font-size: medium;
+    text-align: center;
+}
+
+/* Thrid page 3️⃣ */
+#results > figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
 
 .result-list {
     list-style: none;
     font-size: large;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1rem;
+}
+
+#results > h3 {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px rgb(255, 0, 162);
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+#result-p {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+#restartButton {
+    color: #ffffff;
+    background-color:  rgb(255, 0, 162);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: rgba(245, 245, 245, 0.306) solid;
+    font-weight: bold;
+    font-size: large;
+    display: block;
+    margin: 2rem auto;
+}
+
+#results > div > h3 {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+/* --------------------------Media queries----------------------------- */
+/* For screens bigger then 700px */
+@media only screen and (min-width: 700px) {
+
+    #buttonForTen, #buttonForTwenty, #buttonForAll  {
+        margin-top: 0.5rem;
+    }
+
+    #howMany {
+        font-size: 2rem;
+    }
+
+    #allGuessingButtons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    #studentImage {
+        border: rgba(245, 245, 245, 0.306) solid;
+       
+    }
+
+    .choice {
+        width: 30rem;
+        height: fit-content;
+    }
+
+    #header-two {
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+
+    #guesses {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    #results {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .result-list {
+        display: block;
+        margin: auto;
+        font-size: 1.5rem;
+    }
+
+    #result-gif {
+        display: block;
+        margin: auto;
+        border: 2px solid rgb(255, 0, 162); 
+    }
+
+    #results > h3 {
+        font-size: 2rem;
+    }
+
+    #result-p {
+        font-size: 1.5rem;
+    }
+
+    #restartButton {
+        font-size: 1rem;
+    }
+}
+
+/* For screens bigger then 1200px */
+@media only screen and (min-width: 1200px) {
+
+    #header-one {
+        margin-top: 1rem;
+    }
+
+    #header{
+        margin-bottom: 2rem;
+    }
+
+    .banner {
+        margin-bottom: 2rem;
+    }
+
+    #buttonForTen, #buttonForTwenty, #buttonForAll  {
+        padding: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    #allGuessingButtons {
+       display: flex;
+       flex-direction: row;
+       margin-top: 0;
+    }
+
+    .choice {
+        width: 10rem;
+        height: fit-content;
+        margin: 0.3rem;
+    }
+
+    #header-two {
+        font-size: 2rem;
+        margin-top: 0;
+    }
+
+    #guesses {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    #result-gif {
+        display: block;
+        margin: auto;
+        border: 2px solid rgb(255, 0, 162); 
+    }
+
+    #results {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .result-list {
+        display: block;
+        margin: auto;
+        font-size: 1rem;
+    }
+
+    #results > h3 {
+        font-size: 2rem;
+    }
+
+    #restartButton {
+        font-size: 1rem;
+    }
 }
