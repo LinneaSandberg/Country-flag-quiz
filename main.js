@@ -196,7 +196,7 @@ function displayResults() {
   <h3>Wrong guessed students:</h3>
   <ul class="result-list">${wrongGuessesDisplay}</ul>
   <p id="result-p">🟢 You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses 🔴</p>
-  <button id="restartButton" type="button">Restart new game!</button>
+  <button id="restartButton" type="button">Start new game!</button>
   `;
 }
 
