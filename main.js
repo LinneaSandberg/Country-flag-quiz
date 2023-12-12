@@ -20,10 +20,10 @@ let currentStudent; // identifing the student on the image
 let guesses; // variabel for showing number of guesses
 let maxRounds; // variabel for identifing the games max amount of rounds
 let rounds; // to count amount of rounds
-let rightGuesses = 0; //counter for right-guesses
-let wrongGuesses = 0; //counter for wrong-guesses
-let rightGuessesList = []; //array for names on right-guesses
-let wrongGuessesList = []; //array for names on wrong guesses
+let rightGuesses = 0; // counter for right-guesses
+let wrongGuesses = 0; // counter for wrong-guesses
+let rightGuessesList = []; // array for names on right-guesses
+let wrongGuessesList = []; // array for names on wrong guesses
 
 //functions to hind and unhide elements
 const hideElement = (element) => element.classList.add("hide");
@@ -50,20 +50,22 @@ let twentyStudents = shuffledStudents.slice(0, 20); // list of 20 students
 const gameRound = () => {
   currentStudent = shuffledStudents[currentIndex]; //the correnct name for image
 
-  const allAnswers = buttonOptions(currentStudent, shuffledStudents);
-  console.log({ allAnswers });
+  const allAnswers = buttonOptions(currentStudent, shuffledStudents); // all options for buttons
 
-  shuffleArray(allAnswers);
+  shuffleArray(allAnswers); // shuffel buttonoptions
 
+  // rendering buttons in DOM
   [firstButtonEl, secondButtonEl, thirdButtonEl, forthButtonEl].forEach(
     (el, index) => {
       el.innerHTML = allAnswers[index];
     }
   );
 
+  // rendering image in DOM
   imageEL.src = currentStudent.image;
   currentIndex++;
 
+  // if the currentindex reaches it´s limit, to reset
   if (currentIndex >= shuffledStudents.length) {
     currentIndex = 0;
   }
@@ -74,14 +76,14 @@ const buttonOptions = (currentStudent, shuffledStudents) => {
   const randomNumbers = Math.random() * (students.length - 3);
 
   const incorrectOptions = shuffledStudents
-    .filter((student) => student.name !== currentStudent.name)
-    .map((student) => student.name)
-    .slice(randomNumbers, randomNumbers + 3);
+    .filter((student) => student.name !== currentStudent.name) // filtering out the right name
+    .map((student) => student.name) // names only from objects
+    .slice(randomNumbers, randomNumbers + 3); // slicing out three names
 
   return incorrectOptions.concat(currentStudent.name);
 };
 
-// function for resetting the game for new round
+// function for resetting the game for a new round
 const restartGame = () => {
   shuffleArray(shuffledStudents);
   guesses = 0;
@@ -107,34 +109,13 @@ function updateCounters() {
   wrongGuessesEl.innerText = `Wrong Guesses: ${wrongGuesses}`;
 }
 
-// function to display results in the end off the game
-function displayResults() {
-  const resultOutput =
-    rightGuesses >= wrongGuesses ? "images/winner.gif" : "images/loser.gif";
-
-  const wrongGuessesDisplay = wrongGuessesList
-    .map(
-      (student) =>
-        `<li>Guessed: ${student.guessedName}, Correct: ${student.currentStudent.name}</li> `
-    )
-    .join("");
-
-  resultsEl.innerHTML = `<figure><img id="result-gif" class="img-fluid" src=${resultOutput}></figure>
-  <h3>Wrong guessed students:</h3>
-  <ul class="result-list">${wrongGuessesDisplay}</ul>
-  <p id="result-p">🟢 You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses 🔴</p>
-  <button id="restartButton">Restart new game!</button>
-  `;
-}
-
 // event listner: listening for how many rounds the user want´s to play
 optionsButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
 
+  // checking the value off clicked button
   if (e.target.tagName === "BUTTON") {
-    let numberOfRounds;
-
     if (e.target.value === "10") {
       allStudents = tenStudents;
       maxRounds = 10;
@@ -162,6 +143,7 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
 
+  // checking if the clicked button contains the right name
   if (e.target.tagName === "BUTTON") {
     const guessedName = e.target.innerHTML;
 
@@ -183,6 +165,7 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
     updateCounters();
     rounds++;
 
+    // using a timer to let the results show, if maxrounds displaying results
     if (rounds < maxRounds) {
       setTimeout(() => {
         e.target.style.backgroundColor = "";
@@ -197,9 +180,30 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
   }
 });
 
+// function to display results in the end off the game
+function displayResults() {
+  const resultOutput =
+    rightGuesses >= wrongGuesses ? "images/winner.gif" : "images/loser.gif";
+
+  const wrongGuessesDisplay = wrongGuessesList
+    .map(
+      (student) =>
+        `<li>Guessed: ${student.guessedName}, Correct: ${student.currentStudent.name}</li> `
+    )
+    .join("");
+
+  resultsEl.innerHTML = `<figure><img id="result-gif" class="img-fluid" src=${resultOutput}></figure>
+  <h3>Wrong guessed students:</h3>
+  <ul class="result-list">${wrongGuessesDisplay}</ul>
+  <p id="result-p">🟢 You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses 🔴</p>
+  <button id="restartButton" type="button">Restart new game!</button>
+  `;
+}
+
 // event listner: listening for the user resetting the game
 resultsEl.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
+    e.preventDefault();
     restartGame();
   }
 });
