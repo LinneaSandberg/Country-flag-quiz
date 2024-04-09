@@ -60,7 +60,7 @@
     margin-top: 3rem;
 }
 
-#studentImage {
+#countryImage {
     display: block;
     margin: auto;
     border-radius: 2rem;
@@ -178,9 +178,9 @@
         margin-top: 2rem;
     }
 
-    #studentImage {
+    #countryImage {
         border: rgba(245, 245, 245, 0.306) solid;
-       
+       max-width: 50%;
     }
 
     .choice {

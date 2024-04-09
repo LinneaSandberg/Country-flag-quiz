@@ -1,22 +1,22 @@
 const firstPageEl = document.querySelector(".firstPage"); // for display purpose
 const secondPageEl = document.getElementById("secondPage"); // for display purpose
-const imageEL = document.querySelector("#studentImage"); // rendering the image
+const imageEL = document.querySelector("#countryImage"); // rendering the image
 const guessesEl = document.querySelector("#guesses"); // displaying how many guesses made
-const allGuessingButtonsEl = document.querySelector("#allGuessingButtons"); // buttons for guessing who's the student
+const allGuessingButtonsEl = document.querySelector("#allGuessingButtons"); // buttons for guessing who's the country
 const optionsButtonsEl = document.querySelector(".optionsButtons"); // buttons for choosing how many rounds to play
 const rightGuessesEl = document.querySelector("#rightGuesses"); // displaying how many right-guesses the user have
 const wrongGuessesEl = document.querySelector("#wrongGuesses"); // displaying how many wrong-guesses the user have
 const resultsEl = document.querySelector("#results"); // empty container for rendering the result
 
-// buttons for rendering the student names
+// buttons for rendering the country names
 const firstButtonEl = document.querySelector("#firstButton");
 const secondButtonEl = document.querySelector("#secondButton");
 const thirdButtonEl = document.querySelector("#thirdButton");
 const forthButtonEl = document.querySelector("#forthButton");
 
 //variables for the global-scoope
-let currentIndex = 0; // index for randomize current student
-let currentStudent; // identifing the student on the image
+let currentIndex = 0; // index for randomize current country
+let currentCountry; // identifing the country on the image
 let guesses; // variabel for showing number of guesses
 let maxRounds; // variabel for identifing the games max amount of rounds
 let rounds; // to count amount of rounds
@@ -39,18 +39,18 @@ const shuffleArray = (array) => {
   }
 };
 
-const shuffledStudents = [...students]; // clone `students` array
-shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
+const shuffledCountries = [...countries]; // clone `countries` array
+shuffleArray(shuffledCountries); // shuffle the `shuffledcountries` array
 
-let allStudents = shuffledStudents; // clone of the list off students
-let tenStudents = shuffledStudents.slice(0, 10); // list of 10 students
-let twentyStudents = shuffledStudents.slice(0, 20); // list of 20 students
+let allCountries = shuffledCountries; // clone of the list off countries
+let tenCountries = shuffledCountries.slice(0, 10); // list of 10 countries
+let twentyCountries = shuffledCountries.slice(0, 20); // list of 20 countries
 
 //function to get three random options for names + correct name on shuffled places
 const gameRound = () => {
-  currentStudent = shuffledStudents[currentIndex]; //the correnct name for image
+  currentCountry = shuffledCountries[currentIndex]; //the correnct name for image
 
-  const allAnswers = buttonOptions(currentStudent, shuffledStudents); // all options for buttons
+  const allAnswers = buttonOptions(currentCountry, shuffledCountries); // all options for buttons
 
   shuffleArray(allAnswers); // shuffel buttonoptions
 
@@ -62,30 +62,30 @@ const gameRound = () => {
   );
 
   // rendering image in DOM
-  imageEL.src = currentStudent.image;
+  imageEL.src = currentCountry.image;
   currentIndex++;
 
   // if the currentindex reaches it´s limit, to reset
-  if (currentIndex >= shuffledStudents.length) {
+  if (currentIndex >= shuffledCountries.length) {
     currentIndex = 0;
   }
 };
 
 // function for three incorrect button options
-const buttonOptions = (currentStudent, shuffledStudents) => {
-  const randomNumbers = Math.random() * (students.length - 3);
+const buttonOptions = (currentCountry, shuffledCountries) => {
+  const randomNumbers = Math.random() * (countries.length - 3);
 
-  const incorrectOptions = shuffledStudents
-    .filter((student) => student.name !== currentStudent.name) // filtering out the right name
-    .map((student) => student.name) // names only from objects
+  const incorrectOptions = shuffledCountries
+    .filter((country) => country.name !== currentCountry.name) // filtering out the right name
+    .map((country) => country.name) // names only from objects
     .slice(randomNumbers, randomNumbers + 3); // slicing out three names
 
-  return incorrectOptions.concat(currentStudent.name);
+  return incorrectOptions.concat(currentCountry.name);
 };
 
 // function for resetting the game for a new round
 const restartGame = () => {
-  shuffleArray(shuffledStudents);
+  shuffleArray(shuffledCountries);
   guesses = 0;
   rightGuesses = 0;
   wrongGuesses = 0;
@@ -117,14 +117,14 @@ optionsButtonsEl.addEventListener("click", (e) => {
   // checking the value off clicked button
   if (e.target.tagName === "BUTTON") {
     if (e.target.value === "10") {
-      allStudents = tenStudents;
+      allCountries = tenCountries;
       maxRounds = 10;
     } else if (e.target.value === "20") {
-      allStudents = twentyStudents;
+      allCountries = twentyCountries;
       maxRounds = 20;
     } else if (e.target.value === "all") {
-      allStudents = shuffledStudents;
-      maxRounds = allStudents.length;
+      allCountries = shuffledCountries;
+      maxRounds = allCountries.length;
     }
 
     rounds = 0;
@@ -134,8 +134,8 @@ optionsButtonsEl.addEventListener("click", (e) => {
   updateGuesses(guesses);
   gameRound();
 
-  unhideElement(secondPageEl);
   hideElement(firstPageEl);
+  unhideElement(secondPageEl);
 });
 
 // event listner: listening for the four option buttons off names
@@ -147,16 +147,16 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
     const guessedName = e.target.innerHTML;
 
-    if (guessedName === currentStudent.name) {
+    if (guessedName === currentCountry.name) {
       e.target.style.backgroundColor = "green";
       rightGuesses++;
-      rightGuessesList.push(currentStudent);
-    } else if (guessedName !== currentStudent.name) {
+      rightGuessesList.push(currentCountry);
+    } else if (guessedName !== currentCountry.name) {
       e.target.style.backgroundColor = "red";
       wrongGuesses++;
       wrongGuessesList.push({
         guessedName: guessedName,
-        currentStudent: currentStudent,
+        currentCountry: currentCountry,
       });
     }
 
@@ -172,9 +172,9 @@ allGuessingButtonsEl.addEventListener("click", (e) => {
         gameRound();
       }, 1000);
     } else {
+      hideElement(secondPageEl);
       displayResults();
       e.target.style.backgroundColor = "";
-      hideElement(secondPageEl);
       guesses = 0;
     }
   }
@@ -187,13 +187,13 @@ function displayResults() {
 
   const wrongGuessesDisplay = wrongGuessesList
     .map(
-      (student) =>
-        `<li>Guessed: ${student.guessedName}, Correct: ${student.currentStudent.name}</li> `
+      (country) =>
+        `<li>Guessed: ${country.guessedName}, Correct: ${country.currentCountry.name}</li> `
     )
     .join("");
 
   resultsEl.innerHTML = `<figure><img id="result-gif" class="img-fluid" src=${resultOutput}></figure>
-  <h3>Wrong guessed students:</h3>
+  <h3>Wrong guessed countries:</h3>
   <ul class="result-list">${wrongGuessesDisplay}</ul>
   <p id="result-p">🟢 You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses 🔴</p>
   <button id="restartButton" type="button">Start new game!</button>
