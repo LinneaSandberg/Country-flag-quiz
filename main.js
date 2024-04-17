@@ -73,7 +73,7 @@ const gameRound = () => {
 
 // function for three incorrect button options
 const buttonOptions = (currentCountry, shuffledCountries) => {
-  const randomNumbers = Math.random() * (countries.length - 3);
+  const randomNumbers = Math.floor(Math.random() * (countries.length - 3));
 
   const incorrectOptions = shuffledCountries
     .filter((country) => country.name !== currentCountry.name) // filtering out the right name
@@ -94,8 +94,6 @@ const restartGame = () => {
   rounds = 0;
   updateGuesses(guesses);
   updateCounters();
-  hideElement(resultsEl);
-  unhideElement(firstPageEl);
 };
 
 // function for updating DOM with guesses made
@@ -192,18 +190,21 @@ function displayResults() {
     )
     .join("");
 
-  resultsEl.innerHTML = `<figure><img id="result-gif" class="img-fluid" src=${resultOutput}></figure>
+  resultsEl.innerHTML = `<div id="resultsWrapper"><figure><img id="result-gif" class="img-fluid" src=${resultOutput}></figure>
   <h3>Wrong guessed countries:</h3>
   <ul class="result-list">${wrongGuessesDisplay}</ul>
   <p id="result-p">🟢 You had ${rightGuesses} right guesses and ${wrongGuesses} wrong guesses 🔴</p>
-  <button id="restartButton" type="button">Start new game!</button>
+  <button id="restartButton" type="button">Start new game!</button></div>
   `;
-}
 
-// event listner: listening for the user resetting the game
-resultsEl.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
+  // add event listener for restart button
+  const restartButton = document.getElementById("restartButton");
+  restartButton.addEventListener("click", (e) => {
     e.preventDefault();
+
+    const resultsWrapper = document.getElementById("resultsWrapper");
+    resultsWrapper.remove();
+    unhideElement(firstPageEl);
     restartGame();
-  }
-});
+  });
+}
