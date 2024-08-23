@@ -1,58 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--Style tags-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="main.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="main.css" />
     <title>Quiz-game!</title>
-</head>
-<body id="fullPage"> 
+  </head>
+  <body id="fullPage">
     <main>
-        <!--First page section: welcome page and selection of rounds-->
-        <div class="firstPage container">
-            <h1 id="header-one">Quiz-game!</h1>
-            <div id="header">
-                <figure>
-                    <img class="img-fluid banner" src="images/lets-play.jpeg" alt="A display of text Lets´s Play!">
-                </figure>
-            </div>
-            <section id="numRounds">
-                <h2 id="howMany">Choose how many rounds!</h2>
-                <div class="optionsButtons">
-                    <button id="buttonForTen" type="button" value="10">10 rounds!🥱</button>
-                    <button id="buttonForTwenty" type="button" value="20">20 rounds!😎</button>
-                    <button id="buttonForAll" type="button" value="all">All rounds!🤠</button>
-                </div> 
-            </section>
+      <!--First page section: welcome page and selection of rounds-->
+      <div class="firstPage container">
+        <h1 id="header-one">Quiz-game!</h1>
+        <div id="header">
+          <figure>
+            <img
+              class="img-fluid banner"
+              src="images/lets-play.jpeg"
+              alt="A display of text Lets´s Play!"
+            />
+          </figure>
         </div>
-
-        <!--Second page section: with quiz-->
-        <section id="secondPage" class="hide container">
-            <h3 id="header-two">Guess the flag's country?</h3>
-            <p id="guesses"></p>
-            <figure>
-                <img id="countryImage" class="img-fluid" src="images/placekitten.jpeg" alt="A kitten sniffing">
-            </figure>
-            <div id="allGuessingButtons">
-                <button id="firstButton" class="choice" type="button"></button>
-                <button id="secondButton" class="choice" type="button"></button>
-                <button id="thirdButton" class="choice" type="button"></button>
-                <button id="forthButton" class="choice" type="button"></button>
-            </div>
-            <div id="box-indicator">
-                <p class="guessesResults" id="rightGuesses"></p>
-                <p class="guessesResults" id="wrongGuesses"></p>
-            </div>
+        <section id="numRounds">
+          <h2 id="howMany">Choose how many rounds!</h2>
+          <div class="optionsButtons">
+            <button id="buttonForTen" type="button" value="10">
+              10 rounds!🥱
+            </button>
+            <button id="buttonForTwenty" type="button" value="20">
+              20 rounds!😎
+            </button>
+            <button id="buttonForAll" type="button" value="all">
+              All rounds!🤠
+            </button>
+          </div>
         </section>
+      </div>
 
-        <!--Third page section: game results-->
-        <div id="results"></div>
+      <!--Second page section: with quiz-->
+      <section id="secondPage" class="hide container">
+        <h3 id="header-two">Guess the flag's country?</h3>
+        <p id="guesses"></p>
+        <figure>
+          <img
+            id="countryImage"
+            class="img-fluid"
+            src="images/placekitten.jpeg"
+            alt="A kitten sniffing"
+          />
+        </figure>
+        <div id="allGuessingButtons">
+          <button id="firstButton" class="choice" type="button"></button>
+          <button id="secondButton" class="choice" type="button"></button>
+          <button id="thirdButton" class="choice" type="button"></button>
+          <button id="forthButton" class="choice" type="button"></button>
+        </div>
+        <div id="box-indicator">
+          <p class="guessesResults" id="rightGuesses"></p>
+          <p class="guessesResults" id="wrongGuesses"></p>
+        </div>
+      </section>
+
+      <!--Third page section: game results-->
+      <div id="results"></div>
     </main>
 
     <!--Script tags-->
     <script src="countries.js"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>

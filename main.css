@@ -1,301 +1,300 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 #fullPage {
-    background-color: rgb(28, 28, 28);
-    color:  rgb(255, 255, 255);
+  background-color: rgb(28, 28, 28);
+  color: rgb(255, 255, 255);
 }
 
-/* First page 1️⃣ */
+/* First page */
 .banner {
-    border-radius: 2rem;
-    border: #ffffff solid;
-    display: block;
-    margin: auto;
+  border-radius: 2rem;
+  border: #ffffff solid;
+  display: block;
+  margin: auto;
 }
 
-#header{
-    margin-bottom: 4rem;
+#header {
+  margin-bottom: 2rem;
 }
 
 #header-one {
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px rgb(255, 0, 162);
-    text-align: center;
-    font-weight: bold;
-    font-size: 3rem;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px rgb(255, 0, 162);
+  text-align: center;
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 #howMany {
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px rgb(255, 110, 199);
-    text-align: center;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px rgb(255, 110, 199);
+  text-align: center;
 }
 
-#buttonForTen, #buttonForTwenty, #buttonForAll  {
-    color: #ffffff;
-    background-color:  rgba(10, 5, 77, 0.201);
-    padding: 2rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    border: rgba(245, 245, 245, 0.306) solid;
-    font-weight: bold;
-    font-size: large;
+#buttonForTen,
+#buttonForTwenty,
+#buttonForAll {
+  color: #ffffff;
+  background-color: rgba(10, 5, 77, 0.201);
+  padding: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  border: rgba(245, 245, 245, 0.306) solid;
+  font-weight: bold;
+  font-size: large;
+}
+
+#buttonForTen:hover,
+#buttonForTwenty:hover,
+#buttonForAll:hover {
+  background-color: rgb(255, 0, 162);
 }
 
 .optionsButtons {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Second page 2️⃣ */
-#secondPage {
-    margin-top: 3rem;
-}
-
+/* Second page */
 #countryImage {
-    display: block;
-    margin: auto;
-    border-radius: 2rem;
+  display: block;
+  margin: auto;
+  border-radius: 2rem;
+  height: 10rem;
 }
 
 #header-two {
-    color: rgb(255, 0, 162);
-    font-size: 2rem;
-    text-shadow: 2px 2px rgba(104, 102, 102, 0.214);
-    text-align: center;
-    margin: 5rem auto 3rem auto;
+  color: rgb(255, 0, 162);
+  font-size: 2rem;
+  text-shadow: 2px 2px rgba(104, 102, 102, 0.214);
+  text-align: center;
+  margin: 2rem auto 0 auto;
 }
 
 #guesses {
-    margin-top: 1rem;
-    font-weight: bold;
-    text-align: end;
-    margin-right: 2rem;
+  margin-top: 2rem;
+  font-weight: bold;
+  text-align: end;
+  margin-right: 2rem;
 }
 
 #box-indicator {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 #rightGuesses {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 #allGuessingButtons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
 }
 
 .choice {
-    color: #ffffff;
-    background-color:  rgba(10, 5, 77, 0.201);
-    padding: 1rem 2rem;
-    margin: 0 0.5rem 0.5rem 0;
-    width: 10rem;
-    border-radius: 0.5rem;
-    border: rgba(245, 245, 245, 0.306) solid;
-    font-size: medium;
-    text-align: center;
+  color: #ffffff;
+  background-color: rgba(10, 5, 77, 0.201);
+  padding: 2rem;
+  margin: 0 0.5rem 0.5rem 0;
+  width: 10rem;
+  border-radius: 0.5rem;
+  border: rgba(245, 245, 245, 0.306) solid;
+  font-size: small;
+  text-align: center;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Thrid page 3️⃣ */
+/* Thrid page */
+#resultsWrapper {
+  height: 100%;
+}
+
 #resultsWrapper > figure {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .result-list {
-    list-style: none;
-    font-size: large;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 1rem;
+  list-style: none;
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
 }
 
 #resultsWrapper > h3 {
-    text-align: center;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px rgb(255, 0, 162);
-    font-size: 2rem;
-    padding: 1rem;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px rgb(255, 0, 162);
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.result-list > li {
+  font-size: small;
 }
 
 #result-p {
-    text-align: center;
-    margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: rgb(28, 28, 28);
 }
 
 #restartButton {
-    color: #ffffff;
-    background-color:  rgb(255, 0, 162);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    border: rgba(245, 245, 245, 0.306) solid;
-    font-weight: bold;
-    font-size: large;
-    display: block;
-    margin: 2rem auto;
+  color: #ffffff;
+  background-color: rgb(255, 0, 162);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: rgba(245, 245, 245, 0.306) solid;
+  font-size: large;
+  display: block;
+  margin: 1rem auto;
 }
 
 #resultsWrapper > div > h3 {
-    text-align: center;
-    margin-top: 5rem;
+  text-align: center;
+  margin-top: 5rem;
 }
 
-/* --------------------------Media queries----------------------------- */
 /* For screens bigger then 700px */
 @media only screen and (min-width: 700px) {
+  #buttonForTen,
+  #buttonForTwenty,
+  #buttonForAll {
+    margin-top: 0.5rem;
+  }
 
-    #buttonForTen, #buttonForTwenty, #buttonForAll  {
-        margin-top: 0.5rem;
-    }
+  #howMany {
+    font-size: 2rem;
+  }
 
-    #howMany {
-        font-size: 2rem;
-    }
+  #allGuessingButtons {
+    margin: 1rem 8rem;
+  }
 
-    #allGuessingButtons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 2rem;
-    }
+  #countryImage {
+    border: rgba(245, 245, 245, 0.306) solid;
+    height: 15rem;
+  }
 
-    #countryImage {
-        border: rgba(245, 245, 245, 0.306) solid;
-       max-width: 50%;
-    }
+  .choice {
+    font-size: medium;
+    padding: 3rem;
+  }
 
-    .choice {
-        width: 30rem;
-        height: fit-content;
-    }
+  #header-two {
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
 
-    #header-two {
-        font-size: 2rem;
-        margin-bottom: 0;
-    }
+  #guesses {
+    margin-top: 1rem;
+  }
 
-    #guesses {
-        text-align: center;
-        margin-top: 1rem;
-    }
+  #resultsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-    #resultsWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+  .result-list {
+    display: block;
+    margin: auto;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
 
-    .result-list {
-        display: block;
-        margin: auto;
-        font-size: 1.5rem;
-    }
+  #result-gif {
+    display: block;
+    margin: auto;
+    max-height: 20rem;
+    margin-top: 2rem;
+    border: 2px solid rgb(255, 0, 162);
+  }
 
-    #result-gif {
-        display: block;
-        margin: auto;
-        border: 2px solid rgb(255, 0, 162); 
-    }
+  #resultsWrapper > h3 {
+    font-size: 1.5rem;
+  }
 
-    #resultsWrapper > h3 {
-        font-size: 2rem;
-    }
+  #result-p {
+    font-size: medium;
+    padding: 1rem;
+  }
 
-    #result-p {
-        font-size: 1.5rem;
-    }
-
-    #restartButton {
-        font-size: 1rem;
-    }
+  #restartButton {
+    font-size: medium;
+    padding: 1rem;
+  }
 }
 
 /* For screens bigger then 1200px */
 @media only screen and (min-width: 1200px) {
+  #header-one {
+    margin-top: 1rem;
+  }
 
-    #header-one {
-        margin-top: 1rem;
-    }
+  #header {
+    margin-bottom: 2rem;
+  }
 
-    #header{
-        margin-bottom: 2rem;
-    }
+  .banner {
+    margin-bottom: 2rem;
+  }
 
-    .banner {
-        margin-bottom: 2rem;
-    }
+  #howMany {
+    margin-bottom: 2rem;
+  }
 
-    #buttonForTen, #buttonForTwenty, #buttonForAll  {
-        padding: 1rem;
-        margin-top: 0.5rem;
-    }
+  #buttonForTen,
+  #buttonForTwenty,
+  #buttonForAll {
+    padding: 0.5rem;
+  }
 
-    #allGuessingButtons {
-       display: flex;
-       flex-direction: row;
-       margin-top: 0;
-    }
+  #allGuessingButtons {
+    flex-direction: row;
+    margin: 3rem;
+  }
 
-    .choice {
-        width: 18rem;
-        height: 5rem;
-        margin: 0.3rem;
-    }
+  .choice {
+    width: 10rem;
+    padding: 4rem;
+  }
 
-    #header-two {
-        font-size: 2rem;
-        margin-top: 0;
-    }
+  #header-two {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
 
-    #guesses {
-        text-align: center;
-        margin-bottom: 0.5rem;
-    }
+  #guesses {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-    #result-gif {
-        display: block;
-        margin: auto;
-        border: 2px solid rgb(255, 0, 162); 
-    }
-
-    #resultsWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .result-list {
-        display: block;
-        margin: auto;
-        font-size: 1rem;
-    }
-
-    #resultsWrapper > h3 {
-        font-size: 2rem;
-    }
-
-    #restartButton {
-        font-size: 1rem;
-    }
+  #resultsWrapper > h3 {
+    font-size: 2rem;
+  }
 }
